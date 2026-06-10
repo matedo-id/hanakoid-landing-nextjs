@@ -23,10 +23,10 @@ import type { NextRequest } from "next/server";
  * proxy tetap ringan. Jika data kontak berubah, sinkronkan nilai berikut.
  */
 const WA_LINK =
-  "https://wa.me/6281200000000?text=" +
+  "https://wa.me/628888707070?text=" +
   encodeURIComponent("Halo hanako.id, saya ingin menghubungi tim marketing.");
-const PHONE = "(024) 8454 000";
-const PHONE_HREF = "tel:+62248454000";
+const PHONE = "+62 888-8707-070";
+const PHONE_HREF = "tel:+628888707070";
 const EMAIL = "sales@hanako.id";
 const HOURS = "Sen–Jum 08.00–17.00 WIB";
 const COMPANY = "PT Hanna Integrasi Solusi";
@@ -47,7 +47,7 @@ function maintenanceHtml(): string {
     background-image:linear-gradient(to right,rgba(125,42,142,.06) 1px,transparent 1px),linear-gradient(to bottom,rgba(125,42,142,.06) 1px,transparent 1px);
     background-size:44px 44px; }
   .bar { padding:20px 24px; font-weight:800; font-size:22px; letter-spacing:-.02em; }
-  .bar span { color:#06B6D4; }
+  .bar span { color:var(--primary); }
   main { flex:1; display:flex; align-items:center; justify-content:center; padding:24px; }
   .card { width:100%; max-width:560px; text-align:center; }
   .badge { width:80px; height:80px; margin:0 auto 24px; border-radius:20px; background:var(--primary);
