@@ -699,6 +699,191 @@ export function relatedPortfolio(
 }
 
 /* ============================================================
+   Artikel / Blog
+   ============================================================ */
+export interface ArticleBlock {
+  type: "h2" | "p" | "ul";
+  text?: string;
+  items?: string[];
+}
+
+export interface Article {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  /** Tanggal terbit format ISO (YYYY-MM-DD). */
+  date: string;
+  author: string;
+  readingMinutes: number;
+  coverLabel: string;
+  content: ArticleBlock[];
+}
+
+export const articles: Article[] = [
+  {
+    slug: "memilih-video-wall-untuk-command-center",
+    title: "Memilih Video Wall untuk Command Center",
+    excerpt:
+      "Panduan praktis menentukan teknologi, ukuran, dan konfigurasi video wall yang tepat untuk ruang command center instansi.",
+    category: "Panduan",
+    date: "2026-05-12",
+    author: "Tim hanako.id",
+    readingMinutes: 6,
+    coverLabel: "Video Wall Command Center",
+    content: [
+      {
+        type: "p",
+        text: "Command center menuntut tampilan yang jernih, andal 24/7, dan mampu menampilkan banyak sumber sekaligus. Memilih video wall yang tepat menentukan efektivitas pemantauan. Berikut hal-hal yang perlu dipertimbangkan sebelum pengadaan.",
+      },
+      {
+        type: "h2",
+        text: "1. LCD video wall atau LED?",
+      },
+      {
+        type: "p",
+        text: "Video wall LCD dengan bezel ultra-tipis (3.5 mm) ideal untuk ruang kontrol jarak pandang dekat-menengah karena ketajaman piksel tinggi dan biaya lebih efisien. LED cocok bila Anda butuh permukaan benar-benar tanpa garis (seamless) atau bidang sangat besar.",
+      },
+      {
+        type: "h2",
+        text: "2. Tentukan konfigurasi & ukuran",
+      },
+      {
+        type: "p",
+        text: "Konfigurasi umum adalah matriks 2×2, 3×3, hingga 4×4 panel 55\". Sesuaikan dengan jarak pandang operator dan jumlah sumber yang perlu ditampilkan bersamaan.",
+      },
+      {
+        type: "ul",
+        items: [
+          "Jarak pandang menentukan ukuran panel & pixel pitch",
+          "Jumlah sumber video menentukan kebutuhan video wall controller",
+          "Operasional 24/7 menuntut panel grade industrial",
+        ],
+      },
+      {
+        type: "h2",
+        text: "3. Jangan lupakan controller & daya cadangan",
+      },
+      {
+        type: "p",
+        text: "Video wall controller mengatur tata letak sumber (windowing). Lengkapi dengan UPS online agar pemantauan tetap berjalan saat listrik bermasalah. Pertimbangkan juga redundansi pada perangkat kritis.",
+      },
+      {
+        type: "p",
+        text: "Butuh rekomendasi konfigurasi sesuai ruangan Anda? Tim kami siap membantu survei dan menyusun penawaran.",
+      },
+    ],
+  },
+  {
+    slug: "panduan-pengadaan-teknologi-via-e-katalog",
+    title: "Panduan Pengadaan Teknologi via e-Katalog",
+    excerpt:
+      "Langkah-langkah dan tips agar pengadaan perangkat teknologi instansi melalui e-Katalog LKPP berjalan lancar dan transparan.",
+    category: "Pengadaan",
+    date: "2026-03-28",
+    author: "Tim hanako.id",
+    readingMinutes: 5,
+    coverLabel: "Pengadaan e-Katalog",
+    content: [
+      {
+        type: "p",
+        text: "e-Katalog (INAPROC/LKPP) memudahkan instansi pemerintah melakukan pembelian secara transparan dan akuntabel. Berikut alur dan tips agar prosesnya efisien.",
+      },
+      {
+        type: "h2",
+        text: "Pastikan penyedia terdaftar resmi",
+      },
+      {
+        type: "p",
+        text: "Pilih penyedia yang produknya tayang di e-Katalog dan memiliki legalitas lengkap (NIB). Ini mempercepat verifikasi dan mengurangi risiko pengadaan.",
+      },
+      {
+        type: "h2",
+        text: "Susun spesifikasi yang jelas",
+      },
+      {
+        type: "ul",
+        items: [
+          "Definisikan kebutuhan teknis & jumlah unit",
+          "Sertakan kebutuhan instalasi dan garansi",
+          "Pertimbangkan dukungan purna jual",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Minta penawaran pembanding",
+      },
+      {
+        type: "p",
+        text: "Sebelum negosiasi e-purchasing, mintalah penawaran (RFQ) untuk memahami cakupan, garansi, dan layanan instalasi. Penawaran yang rinci memudahkan Anda membandingkan nilai, bukan sekadar harga.",
+      },
+      {
+        type: "p",
+        text: "hanako.id terdaftar di e-Katalog INAPROC dan siap membantu menyusun spesifikasi serta penawaran sesuai anggaran instansi Anda.",
+      },
+    ],
+  },
+  {
+    slug: "tips-membangun-smart-class-yang-efektif",
+    title: "Tips Membangun Smart Class yang Efektif",
+    excerpt:
+      "Komponen kunci dan praktik terbaik untuk mendigitalisasi ruang kelas agar pembelajaran lebih interaktif dan tahan lama.",
+    category: "Pendidikan",
+    date: "2026-01-20",
+    author: "Tim hanako.id",
+    readingMinutes: 4,
+    coverLabel: "Smart Class",
+    content: [
+      {
+        type: "p",
+        text: "Smart class bukan sekadar memasang layar besar. Agar benar-benar efektif, perangkat harus mudah digunakan dosen/guru dan andal untuk pemakaian harian.",
+      },
+      {
+        type: "h2",
+        text: "Komponen inti",
+      },
+      {
+        type: "ul",
+        items: [
+          "Interactive flat panel 4K dengan whiteboard digital",
+          "Sistem audio yang merata ke seluruh ruangan",
+          "Konektivitas mudah (wireless screen sharing)",
+          "Manajemen perangkat terpusat untuk banyak ruang",
+        ],
+      },
+      {
+        type: "h2",
+        text: "Perhatikan kemudahan & perawatan",
+      },
+      {
+        type: "p",
+        text: "Pilih panel dengan OS bawaan dan antarmuka sederhana agar adopsi cepat. Sediakan pelatihan singkat untuk pengajar dan teknisi, serta rencana perawatan agar perangkat awet.",
+      },
+      {
+        type: "p",
+        text: "Kami telah mendigitalisasi puluhan ruang kelas di berbagai kampus. Konsultasikan rencana smart class Anda dengan tim kami.",
+      },
+    ],
+  },
+];
+
+export function getArticle(slug: string): Article | undefined {
+  return articles.find((a) => a.slug === slug);
+}
+
+export function relatedArticles(article: Article, limit = 2): Article[] {
+  return articles.filter((a) => a.slug !== article.slug).slice(0, limit);
+}
+
+export function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+/* ============================================================
    Konten pendukung
    ============================================================ */
 export const trustText =

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { products, portfolio, siteUrl } from "@/lib/data";
+import { products, portfolio, articles, siteUrl } from "@/lib/data";
 
 type ChangeFreq = MetadataRoute.Sitemap[number]["changeFrequency"];
 
@@ -42,5 +42,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticRoutes, ...productRoutes, ...portfolioRoutes];
+  const articleRoutes: MetadataRoute.Sitemap = articles.map((a) => ({
+    url: `${siteUrl}/articles/${a.slug}`,
+    lastModified: new Date(a.date),
+    changeFrequency: "yearly",
+    priority: 0.5,
+  }));
+
+  return [
+    ...staticRoutes,
+    ...productRoutes,
+    ...portfolioRoutes,
+    ...articleRoutes,
+  ];
 }

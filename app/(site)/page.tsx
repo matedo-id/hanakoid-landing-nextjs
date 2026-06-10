@@ -19,6 +19,7 @@ import { TrustStrip } from "@/components/trust-strip";
 import { Steps } from "@/components/steps";
 import { Stat } from "@/components/stat";
 import { Reveal } from "@/components/reveal";
+import { FaqSection } from "@/components/faq-section";
 import {
   categories,
   products,
@@ -252,6 +253,9 @@ export default function HomePage() {
           <Steps steps={processSteps} />
         </Container>
       </section>
+
+      {/* ============ FAQ ============ */}
+      <FaqSection />
 
       {/* ============ Closing CTA ============ */}
       <section className="section">
