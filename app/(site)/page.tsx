@@ -12,6 +12,7 @@ import { Button } from "@/components/button";
 import { Badge } from "@/components/badge";
 import { CategoryTile } from "@/components/category-tile";
 import { ProductCard } from "@/components/product-card";
+import { PortfolioCard } from "@/components/portfolio-card";
 import { Placeholder } from "@/components/placeholder";
 import { TrustStrip } from "@/components/trust-strip";
 import { Steps } from "@/components/steps";
@@ -21,6 +22,7 @@ import {
   categories,
   products,
   solutions,
+  portfolio,
   stats,
   whyReasons,
   processSteps,
@@ -32,6 +34,7 @@ import {
 
 export default function HomePage() {
   const featured = products.filter((p) => p.featured);
+  const featuredPortfolio = portfolio.filter((p) => p.featured);
 
   return (
     <>
@@ -177,6 +180,28 @@ export default function HomePage() {
                 </Reveal>
               );
             })}
+          </div>
+        </Container>
+      </section>
+
+      {/* ============ Proyek Terpilih ============ */}
+      <section className="section">
+        <Container className="flex flex-col gap-10">
+          <SectionHeader
+            eyebrow="Portfolio"
+            title="Proyek terpilih kami"
+            lead="Sebagian hasil pekerjaan yang telah kami selesaikan untuk berbagai instansi."
+            action={
+              <Button href="/portfolio" variant="secondary">
+                Semua Portfolio
+                <ArrowRight />
+              </Button>
+            }
+          />
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {featuredPortfolio.map((p) => (
+              <PortfolioCard key={p.id} item={p} />
+            ))}
           </div>
         </Container>
       </section>

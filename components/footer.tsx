@@ -21,6 +21,7 @@ const badges = [
 const perusahaanLinks = [
   { label: "Profil Perusahaan", href: "/about" },
   { label: "Solusi Vertikal", href: "/solution" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Artikel", href: "/articles" },
   { label: "Kontak", href: "/contact" },
   { label: "Minta Penawaran", href: "/rfq" },

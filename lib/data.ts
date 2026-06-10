@@ -492,6 +492,213 @@ export const solutions: Solution[] = [
 ];
 
 /* ============================================================
+   Portfolio (hasil pekerjaan)
+   ============================================================ */
+export interface PortfolioItem {
+  id: string;
+  title: string;
+  client: string;
+  sector: string;
+  /** Kunci solusi vertikal terkait (opsional), untuk tautan silang. */
+  solutionKey?: string;
+  year: string;
+  location: string;
+  summary: string;
+  description: string;
+  /** Lingkup pekerjaan yang dikerjakan. */
+  scope: string[];
+  /** Produk/teknologi yang digunakan. */
+  products: string[];
+  stats?: { value: string; label: string }[];
+  coverLabel: string;
+  gallery: string[];
+  featured?: boolean;
+}
+
+export const portfolio: PortfolioItem[] = [
+  {
+    id: "command-center-pemkot",
+    title: "Command Center Pemerintah Kota",
+    client: "Pemerintah Kota Semarang",
+    sector: "Pemerintahan",
+    solutionKey: "command-center",
+    year: "2024",
+    location: "Semarang, Jawa Tengah",
+    summary:
+      "Pembangunan ruang command center terintegrasi dengan video wall LCD 3×3 dan workstation operator.",
+    description:
+      "Kami merancang dan membangun command center untuk memonitor layanan kota secara terpusat. Pekerjaan mencakup video wall LCD 55\" konfigurasi 3×3, workstation operator, sistem daya cadangan UPS redundan, serta integrasi sumber video dari berbagai dinas. Ruangan didesain ergonomis dengan kontrol terpusat untuk operasional 24/7.",
+    scope: [
+      "Desain layout & akustik ruangan",
+      "Instalasi video wall LCD 3×3",
+      "Workstation operator & furniture",
+      "UPS redundan & panel daya",
+      "Integrasi & pelatihan operator",
+    ],
+    products: ['Video Wall LCD 55" 3×3', "UPS Online 3kVA", "PC OptiPlex i7"],
+    stats: [
+      { value: "9", label: "Panel video wall" },
+      { value: "24/7", label: "Operasional" },
+      { value: "6", label: "Sumber video terintegrasi" },
+    ],
+    coverLabel: "Command Center Pemkot",
+    gallery: ["Video Wall 3×3", "Workstation Operator", "Panel Daya & UPS"],
+    featured: true,
+  },
+  {
+    id: "smart-class-politeknik",
+    title: "Smart Class Politeknik",
+    client: "Politeknik Negeri",
+    sector: "Pendidikan",
+    solutionKey: "smart-class",
+    year: "2023",
+    location: "Semarang, Jawa Tengah",
+    summary:
+      "Digitalisasi 12 ruang kelas dengan interactive flat panel 4K dan sistem audio.",
+    description:
+      "Transformasi ruang kelas konvensional menjadi smart class. Setiap ruang dilengkapi interactive flat panel 86\" 4K, sistem audio kelas, dan koneksi terintegrasi. Dosen dapat mengajar interaktif dengan whiteboard digital dan berbagi materi langsung dari panel.",
+    scope: [
+      "Pemasangan 12 unit interactive flat panel",
+      "Sistem audio per ruang kelas",
+      "Bracket & instalasi kabel rapi",
+      "Pelatihan dosen & teknisi",
+    ],
+    products: ['IFP 75"/86" 4K', "Audio Conference System"],
+    stats: [
+      { value: "12", label: "Ruang kelas" },
+      { value: "86\"", label: "Panel interaktif 4K" },
+      { value: "100%", label: "Serah terima tepat waktu" },
+    ],
+    coverLabel: "Smart Class Politeknik",
+    gallery: ["Ruang Kelas IFP", "Panel Interaktif 4K", "Instalasi Audio"],
+    featured: true,
+  },
+  {
+    id: "antrian-rsud",
+    title: "Sistem Antrian RSUD",
+    client: "RSUD Daerah",
+    sector: "Rumah Sakit",
+    solutionKey: "rumah-sakit",
+    year: "2024",
+    location: "Kendal, Jawa Tengah",
+    summary:
+      "Implementasi sistem antrian touchscreen multi-loket dengan display panggilan di 18 poli.",
+    description:
+      "Penerapan sistem antrian terpusat untuk meningkatkan kenyamanan pasien. Mencakup kios pendaftaran touchscreen, printer tiket, display panggilan per poli, dan dashboard monitoring. Terintegrasi dengan alur layanan rawat jalan sehingga antrian lebih tertib dan terukur.",
+    scope: [
+      "Kios antrian touchscreen + printer",
+      "Display panggilan 18 poli",
+      "Software multi-loket & dashboard",
+      "Integrasi alur rawat jalan",
+    ],
+    products: ["Mesin Antrian Touchscreen + Kios", "Paket CCTV IP 4MP 8 Titik"],
+    stats: [
+      { value: "18", label: "Poli terlayani" },
+      { value: "32", label: "Loket aktif" },
+      { value: "−40%", label: "Waktu tunggu" },
+    ],
+    coverLabel: "Sistem Antrian RSUD",
+    gallery: ["Kios Antrian", "Display Panggilan", "Dashboard Monitoring"],
+    featured: true,
+  },
+  {
+    id: "videotron-alun-alun",
+    title: "Videotron Outdoor Alun-Alun",
+    client: "Pemerintah Kabupaten",
+    sector: "Pemerintahan",
+    solutionKey: "retail",
+    year: "2023",
+    location: "Demak, Jawa Tengah",
+    summary:
+      "Pemasangan videotron outdoor LED P4 tahan cuaca untuk informasi publik di area alun-alun.",
+    description:
+      "Penyediaan dan pemasangan videotron outdoor LED P4 berukuran besar dengan proteksi IP65. Digunakan untuk menayangkan informasi publik, imbauan, dan konten pemerintah. Dilengkapi sistem kontrol konten jarak jauh dan struktur tiang yang kokoh.",
+    scope: [
+      "Struktur tiang & rangka baja",
+      "Instalasi modul LED P4 outdoor",
+      "Sistem kontrol konten & jadwal",
+      "Proteksi petir & kelistrikan",
+    ],
+    products: ["Videotron Outdoor LED P4", "UPS Online 3kVA"],
+    stats: [
+      { value: "IP65", label: "Tahan cuaca" },
+      { value: "5500", label: "Nits kecerahan" },
+      { value: "24/7", label: "Tayang publik" },
+    ],
+    coverLabel: "Videotron Alun-Alun",
+    gallery: ["Videotron Outdoor", "Struktur Tiang", "Ruang Kontrol"],
+  },
+  {
+    id: "cctv-kampus",
+    title: "Pengawasan CCTV Kampus",
+    client: "Universitas Swasta",
+    sector: "Pendidikan",
+    solutionKey: "smart-class",
+    year: "2022",
+    location: "Semarang, Jawa Tengah",
+    summary:
+      "Pemasangan 64 titik CCTV IP dengan analitik dan pusat monitoring keamanan kampus.",
+    description:
+      "Membangun sistem pengawasan menyeluruh untuk area kampus seluas beberapa hektar. Mencakup 64 kamera IP 4MP, NVR dengan penyimpanan besar, jaringan PoE, dan ruang monitoring keamanan. Mendukung night vision dan analitik dasar untuk deteksi area.",
+    scope: [
+      "64 titik kamera IP 4MP",
+      "NVR & penyimpanan terpusat",
+      "Jaringan PoE & kabel fiber",
+      "Ruang monitoring keamanan",
+    ],
+    products: ["Paket CCTV IP 4MP 8 Titik", "Server Rack 2U", "UPS Online 3kVA"],
+    stats: [
+      { value: "64", label: "Titik kamera" },
+      { value: "30 hari", label: "Rekaman tersimpan" },
+      { value: "1", label: "Pusat monitoring" },
+    ],
+    coverLabel: "CCTV Kampus",
+    gallery: ["Kamera IP Area", "Ruang Monitoring", "Rak Server & NVR"],
+  },
+  {
+    id: "audio-sidang-dprd",
+    title: "Audio Conference Ruang Sidang",
+    client: "Sekretariat DPRD",
+    sector: "Pemerintahan",
+    solutionKey: "kantor",
+    year: "2024",
+    location: "Salatiga, Jawa Tengah",
+    summary:
+      "Sistem konferensi digital untuk ruang sidang paripurna dengan unit ketua & delegasi.",
+    description:
+      "Pemasangan sistem audio conference digital untuk ruang sidang paripurna. Terdiri dari unit mikrofon ketua dan delegasi, DSP, mixer, serta integrasi perekaman rapat. Suara jernih dan bebas feedback mendukung jalannya rapat resmi.",
+    scope: [
+      "Unit konferensi ketua & delegasi",
+      "DSP, mixer & pengeras suara",
+      "Integrasi perekaman rapat",
+      "Kalibrasi akustik ruangan",
+    ],
+    products: ["Audio Conference System", "UPS Online 3kVA"],
+    stats: [
+      { value: "45", label: "Unit mikrofon" },
+      { value: "0", label: "Feedback" },
+      { value: "HD", label: "Kualitas audio" },
+    ],
+    coverLabel: "Audio Sidang DPRD",
+    gallery: ["Ruang Sidang", "Unit Delegasi", "Rak Audio & DSP"],
+  },
+];
+
+export function getPortfolio(id: string): PortfolioItem | undefined {
+  return portfolio.find((p) => p.id === id);
+}
+
+export function relatedPortfolio(
+  item: PortfolioItem,
+  limit = 3
+): PortfolioItem[] {
+  return portfolio
+    .filter((p) => p.sector === item.sector && p.id !== item.id)
+    .concat(portfolio.filter((p) => p.sector !== item.sector && p.id !== item.id))
+    .slice(0, limit);
+}
+
+/* ============================================================
    Konten pendukung
    ============================================================ */
 export const trustText =

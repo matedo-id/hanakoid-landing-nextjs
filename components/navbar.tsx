@@ -19,6 +19,7 @@ import { categories, waLink } from "@/lib/data";
 const navLinks = [
   { label: "Produk", href: "/catalog", mega: true },
   { label: "Solusi", href: "/solution" },
+  { label: "Portfolio", href: "/portfolio" },
   { label: "Profil", href: "/about" },
   { label: "Artikel", href: "/articles" },
   { label: "Kontak", href: "/contact" },
