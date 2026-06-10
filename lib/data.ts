@@ -579,6 +579,36 @@ export const faqs: { q: string; a: string }[] = [
 ];
 
 /* ============================================================
+   Brand / Logo
+   Ubah path, dimensi, dan tinggi tampil di sini agar logo
+   mudah diganti tanpa menyentuh komponen.
+   ============================================================ */
+export interface LogoConfig {
+  /** Logo utama untuk latar terang (mis. di public/). */
+  src: string;
+  /** Logo versi terang untuk latar gelap (footer). Null = pakai `src` + darkFilter. */
+  srcDark: string | null;
+  /** Dimensi intrinsik gambar — wajib agar rasio terjaga. */
+  width: number;
+  height: number;
+  /** Tinggi tampil dalam px; lebar mengikuti rasio secara otomatis. */
+  displayHeight: number;
+  alt: string;
+  /** Filter CSS agar `src` tampil putih di latar gelap saat srcDark null. */
+  darkFilter: string;
+}
+
+export const logo: LogoConfig = {
+  src: "/logo-hanakoid.webp",
+  srcDark: null, // ganti ke mis. "/logo-white.png" bila tersedia
+  width: 433,
+  height: 300,
+  displayHeight: 44,
+  alt: "hanako.id",
+  darkFilter: "brightness(0) invert(1)",
+};
+
+/* ============================================================
    Kontak
    ============================================================ */
 export const contact = {
