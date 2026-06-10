@@ -52,6 +52,7 @@ export function Navbar() {
   }
 
   return (
+    <>
     <header
       className="sticky top-0 z-50 border-b border-border bg-white/80 backdrop-blur-md"
       style={{ height: "var(--nav-h)" }}
@@ -163,9 +164,15 @@ export function Navbar() {
         </div>
       )}
 
-      {/* Mobile drawer */}
-      <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
     </header>
+
+      {/* Mobile drawer — DI LUAR <header>. Header memakai backdrop-filter
+          (backdrop-blur) yang menjadikannya containing block untuk elemen
+          position:fixed di dalamnya, sehingga drawer h-full akan mengikuti
+          tinggi header (bukan viewport) dan tampak transparan. Dirender di
+          sini agar fixed mengacu ke viewport. */}
+      <MobileDrawer open={drawer} onClose={() => setDrawer(false)} />
+    </>
   );
 }
 
@@ -231,13 +238,13 @@ function MobileDrawer({
         aria-hidden
         onClick={onClose}
         className={cn(
-          "fixed inset-0 z-40 bg-ink/40 transition-opacity duration-300 min-[861px]:hidden",
+          "fixed inset-0 z-[60] bg-ink/50 transition-opacity duration-300 min-[861px]:hidden",
           open ? "opacity-100" : "pointer-events-none opacity-0"
         )}
       />
       <aside
         className={cn(
-          "fixed right-0 top-0 z-50 flex h-full w-[84vw] max-w-[360px] flex-col bg-white shadow-[var(--sh-lg)] transition-transform duration-300 min-[861px]:hidden",
+          "fixed right-0 top-0 z-[70] flex h-dvh w-[84vw] max-w-[360px] flex-col bg-white shadow-[var(--sh-lg)] transition-transform duration-300 min-[861px]:hidden",
           open ? "translate-x-0" : "translate-x-full"
         )}
         style={{ transitionTimingFunction: "var(--ease)" }}
