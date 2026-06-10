@@ -25,22 +25,48 @@ npm run lint     # ESLint
 
 ```
 app/
-  layout.tsx            # Root layout: font, metadata, Navbar/Footer/FloatingWA
+  layout.tsx            # Root layout: <html>/<body>, font, metadata global
   globals.css           # Design tokens (@theme) + komponen/utility classes
-  page.tsx              # Homepage
-  catalog/              # Katalog produk (filter kategori + pencarian)
-  product/[id]/         # Detail produk (generateStaticParams)
-  solution/             # Solusi & paket vertikal
-  about/                # Profil perusahaan
-  contact/              # Kontak + form
-  rfq/                  # Minta Penawaran (Request for Quote)
-  articles/             # Artikel (placeholder)
   not-found.tsx         # Halaman 404
+  (site)/               # Grup rute dengan chrome (Navbar/Footer/FloatingWA)
+    layout.tsx          # Layout situs (menyuntikkan chrome)
+    page.tsx            # Homepage
+    catalog/            # Katalog produk (filter kategori + pencarian)
+    product/[id]/       # Detail produk (generateStaticParams)
+    solution/           # Solusi & paket vertikal
+    about/              # Profil perusahaan
+    contact/            # Kontak + form
+    rfq/                # Minta Penawaran (Request for Quote)
+    articles/           # Artikel (placeholder)
+  maintenance/          # Halaman "dalam perbaikan" — STANDALONE (tanpa chrome)
 components/              # Komponen UI reusable (Button, ProductCard, Navbar, dll.)
 lib/
   data.ts               # Data terketik: kategori, produk, solusi, kontak, helper
   cn.ts                 # Helper className
+proxy.ts                # Gerbang mode maintenance (Proxy = Middleware di Next 16)
 ```
+
+> **Route groups:** `(site)` mengelompokkan halaman yang memakai Navbar/Footer
+> tanpa mengubah URL. Halaman `/maintenance` sengaja berada di luar grup agar
+> dirender **standalone** (hanya `<html>`/`<body>`, tanpa navbar/footer).
+
+## Mode Maintenance
+
+Untuk menutup sementara seluruh situs dan menampilkan halaman "dalam perbaikan":
+
+```bash
+# .env.local
+MAINTENANCE_MODE=true
+```
+
+Lalu restart server. Saat aktif, `proxy.ts` me-**rewrite** semua permintaan
+halaman ke `/maintenance` — URL asli pengunjung tetap dipertahankan, hanya
+kontennya yang diganti. Aset statis (`_next/static`, `_next/image`, gambar,
+favicon) dikecualikan lewat `matcher` agar halaman maintenance tetap tampil
+dengan benar. Set `false` (atau hapus var) untuk kembali normal.
+
+> Di Next.js 16, _Middleware_ berganti nama menjadi _Proxy_ (`proxy.ts`).
+> Fungsinya sama. Lihat `.env.example`.
 
 ## Design System
 

@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
-import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -57,12 +54,7 @@ export default function RootLayout({
       lang="id"
       className={`${jakarta.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <FloatingWhatsApp />
-      </body>
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
