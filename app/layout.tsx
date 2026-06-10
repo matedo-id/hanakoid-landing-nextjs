@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Inter } from "next/font/google";
 import "./globals.css";
+import { StructuredData } from "@/components/structured-data";
+import { siteUrl } from "@/lib/data";
 
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -14,8 +16,13 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#7D2A8E",
+  colorScheme: "light",
+};
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hanako.id"),
+  metadataBase: new URL(siteUrl),
   title: {
     default: "hanako.id — Best Partner for Your IT Solution",
     template: "%s · hanako.id",
@@ -37,10 +44,22 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "id_ID",
+    url: siteUrl,
     siteName: "hanako.id",
     title: "hanako.id — Best Partner for Your IT Solution",
     description:
       "System integrator & penyedia pengadaan teknologi B2B dan instansi. Dipercaya pemerintah, kampus & rumah sakit sejak 2015.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "hanako.id — Best Partner for Your IT Solution",
+    description:
+      "System integrator & penyedia pengadaan teknologi B2B dan instansi sejak 2015.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
   },
 };
 
@@ -54,7 +73,10 @@ export default function RootLayout({
       lang="id"
       className={`${jakarta.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <StructuredData />
+        {children}
+      </body>
     </html>
   );
 }

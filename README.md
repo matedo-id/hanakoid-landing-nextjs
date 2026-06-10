@@ -100,8 +100,28 @@ diakses langsung untuk pratinjau/penyuntingan.
 - **Logo** dirender sebagai wordmark (`components/logo.tsx`) agar tidak
   bergantung pada aset raster. Untuk memakai logo resmi, taruh
   `logo-hanakoid.webp` / `logo-white.png` di `public/` lalu sesuaikan komponen.
-- **Form** (Kontak & RFQ) divalidasi di sisi klien dan menampilkan Toast sukses.
-  Belum terhubung ke backend — tambahkan Route Handler / Server Action sesuai
-  kebutuhan.
 - Data kontak, harga, dan nomor WhatsApp pada `lib/data.ts` masih contoh —
   sesuaikan dengan data resmi sebelum produksi.
+
+## Lead Capture (Form Kontak & RFQ)
+
+Form Kontak & RFQ memvalidasi di sisi klien, lalu mengirim data ke route
+`POST /api/lead`. Alur penangkapan lead:
+
+1. **Server** (`app/api/lead/route.ts`) memvalidasi ulang, menyaring spam
+   (honeypot), lalu **meneruskan ke `LEAD_WEBHOOK_URL`** bila di-set
+   (Make/Zapier/n8n/Google Apps Script/Slack/CRM). Tanpa webhook, lead dicatat
+   ke log server.
+2. **WhatsApp** — setelah sukses, pengunjung diberi tombol "Lanjutkan via
+   WhatsApp" berisi pesan terstruktur otomatis ke nomor sales. Ini kanal yang
+   dijamin sampai tanpa konfigurasi apa pun.
+
+Konfigurasi di `.env.local`:
+
+```bash
+LEAD_WEBHOOK_URL=https://hook.eu1.make.com/xxxx   # opsional, untuk CRM/record
+```
+
+> Untuk pengiriman email langsung (SMTP), tambahkan integrasi di route handler
+> tersebut. Untuk konversi Google Ads/GA4, picu event pada keberhasilan submit
+> (lihat rekomendasi SEO/Ads).

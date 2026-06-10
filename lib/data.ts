@@ -786,6 +786,14 @@ export const faqs: { q: string; a: string }[] = [
 ];
 
 /* ============================================================
+   Site
+   ============================================================ */
+/** URL produksi kanonik. Override via env NEXT_PUBLIC_SITE_URL bila perlu. */
+export const siteUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://hanako.id"
+).replace(/\/$/, "");
+
+/* ============================================================
    Brand / Logo
    Ubah path, dimensi, dan tinggi tampil di sini agar logo
    mudah diganti tanpa menyentuh komponen.

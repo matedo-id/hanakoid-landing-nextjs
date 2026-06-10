@@ -5,6 +5,8 @@ import { Send } from "lucide-react";
 import { Button } from "@/components/button";
 import { Input, Textarea } from "@/components/field";
 import { Toast } from "@/components/toast";
+import { FormSuccess } from "@/components/form-success";
+import { leadWaLink, type LeadPayload } from "@/lib/lead";
 
 interface Errors {
   name?: string;
@@ -14,12 +16,18 @@ interface Errors {
 
 export function ContactForm() {
   const [errors, setErrors] = useState<Errors>({});
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [waUrl, setWaUrl] = useState("");
   const [toast, setToast] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
+
+    if (data.get("_gotcha")) return; // honeypot
+
     const name = data.get("name")?.toString().trim() ?? "";
     const email = data.get("email")?.toString().trim() ?? "";
     const message = data.get("message")?.toString().trim() ?? "";
@@ -34,8 +42,49 @@ export function ContactForm() {
     setErrors(next);
     if (Object.keys(next).length > 0) return;
 
-    form.reset();
+    const payload: LeadPayload = {
+      type: "contact",
+      name,
+      email,
+      instansi: data.get("instansi")?.toString().trim() || undefined,
+      phone: data.get("phone")?.toString().trim() || undefined,
+      message,
+      source: "contact-page",
+      page: typeof window !== "undefined" ? window.location.href : undefined,
+    };
+
+    setSubmitting(true);
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (res.status === 422) {
+        setErrors({ email: "Periksa kembali data Anda." });
+        setSubmitting(false);
+        return;
+      }
+    } catch {
+      // Abaikan kegagalan jaringan — WhatsApp tetap jadi kanal cadangan.
+    }
+
+    setSubmitting(false);
+    setWaUrl(leadWaLink(payload));
     setToast(true);
+    setSubmitted(true);
+    form.reset();
+  }
+
+  if (submitted) {
+    return (
+      <FormSuccess
+        title="Pesan terkirim!"
+        message="Terima kasih. Tim kami akan menghubungi Anda. Untuk respons lebih cepat, lanjutkan ke WhatsApp."
+        waUrl={waUrl}
+        onReset={() => setSubmitted(false)}
+      />
+    );
   }
 
   return (
@@ -45,6 +94,15 @@ export function ContactForm() {
         noValidate
         className="card flex flex-col gap-5 p-7"
       >
+        {/* Honeypot anti-spam */}
+        <input
+          type="text"
+          name="_gotcha"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="hidden"
+        />
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Input
             id="name"
@@ -87,9 +145,9 @@ export function ContactForm() {
           rows={5}
         />
         <div>
-          <Button type="submit" size="lg">
+          <Button type="submit" size="lg" disabled={submitting}>
             <Send />
-            Kirim Pesan
+            {submitting ? "Mengirim…" : "Kirim Pesan"}
           </Button>
         </div>
       </form>

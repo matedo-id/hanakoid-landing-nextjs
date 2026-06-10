@@ -40,6 +40,7 @@ export async function generateMetadata({
   return {
     title: `${item.title} — ${item.client}`,
     description: item.summary,
+    alternates: { canonical: `/portfolio/${item.id}` },
   };
 }
 

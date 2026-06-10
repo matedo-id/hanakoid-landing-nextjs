@@ -18,6 +18,7 @@ import {
   priceNote,
   waLink,
   contact,
+  siteUrl,
 } from "@/lib/data";
 
 export function generateStaticParams() {
@@ -37,6 +38,7 @@ export async function generateMetadata({
     description:
       product.description ??
       `${product.name} dari ${product.brand}. Ajukan penawaran ke hanako.id.`,
+    alternates: { canonical: `/product/${product.id}` },
   };
 }
 
@@ -53,8 +55,37 @@ export default async function ProductPage({
   const related = relatedProducts(product);
   const isCall = product.status === "call";
 
+  const availability =
+    product.status === "ready"
+      ? "https://schema.org/InStock"
+      : product.status === "inden"
+        ? "https://schema.org/BackOrder"
+        : "https://schema.org/PreOrder";
+
+  const productLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    sku: product.sku,
+    brand: { "@type": "Brand", name: product.brand },
+    category: product.cat,
+    description: product.description ?? product.name,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "IDR",
+      availability,
+      url: `${siteUrl}/product/${product.id}`,
+      seller: { "@type": "Organization", name: contact.company },
+      ...(product.price !== null ? { price: product.price } : {}),
+    },
+  };
+
   return (
     <Container className="section flex flex-col gap-14">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(productLd) }}
+      />
       <div className="flex flex-col gap-8">
         <Breadcrumb
           items={[
