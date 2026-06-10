@@ -59,14 +59,27 @@ Untuk menutup sementara seluruh situs dan menampilkan halaman "dalam perbaikan":
 MAINTENANCE_MODE=true
 ```
 
-Lalu restart server. Saat aktif, `proxy.ts` me-**rewrite** semua permintaan
-halaman ke `/maintenance` — URL asli pengunjung tetap dipertahankan, hanya
-kontennya yang diganti. Aset statis (`_next/static`, `_next/image`, gambar,
-favicon) dikecualikan lewat `matcher` agar halaman maintenance tetap tampil
-dengan benar. Set `false` (atau hapus var) untuk kembali normal.
+Lalu restart server. Saat aktif, `proxy.ts` mengembalikan **halaman HTML 503**
+secara langsung untuk semua rute (kecuali aset statis & rute `/maintenance`).
+Set `false` (atau hapus var) untuk kembali normal.
 
-> Di Next.js 16, _Middleware_ berganti nama menjadi _Proxy_ (`proxy.ts`).
-> Fungsinya sama. Lihat `.env.example`.
+Halaman React `/maintenance` (standalone, di `app/maintenance/`) tetap dapat
+diakses langsung untuk pratinjau/penyuntingan.
+
+> **Kenapa HTML langsung, bukan rewrite/redirect?**
+> Di belakang reverse proxy yang terminasi TLS (nginx/Caddy), `request.url`
+> berisi origin internal (mis. `https://localhost:3002`) sementara server Node
+> melayani HTTP. Membangun URL absolut dari request akan memicu subrequest TLS
+> ke server HTTP internal → error `EPROTO: wrong version number`, atau
+> `ERR_INVALID_URL`. Mengembalikan HTML langsung tidak menyentuh URL sama
+> sekali, jadi aman di semua konfigurasi proxy dan memberi status `503` yang
+> tepat. **Jangan** ubah `proxy.ts` menjadi `NextResponse.rewrite/redirect`
+> dengan `new URL(..., request.url)`.
+
+> Catatan Next.js 16: _Middleware_ berganti nama menjadi _Proxy_ (`proxy.ts`).
+> `matcher` harus berupa string literal statis (jangan pakai `String.raw`/
+> variabel — build akan gagal "Invalid segment configuration export").
+> Lihat `.env.example`.
 
 ## Design System
 
